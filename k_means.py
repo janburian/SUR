@@ -66,8 +66,6 @@ def k_means(R, data):
     listTrid = []
 
     for i in range(R):
-        # randomIndex = rand.randint(0, len(data)) # nahodne stredy obcas zlobi, vygenerujou se spatne stredy
-        # stredy_zacatek.append(data[randomIndex])
         stredy_zacatek.append(data[i])
 
     stredy = stredy_zacatek
@@ -140,6 +138,8 @@ def vykresliData(data):
         plt.title("Vykreslení dat")
         plt.xlabel('x')
         plt.ylabel('y')
+    plt.axvline(x=0, c="black", label="x=0")
+    plt.axhline(y=0, c="black", label="y=0")
     plt.show()
 
 
@@ -157,6 +157,8 @@ def vykresli_k_means(rozdeleniDoTrid_k_means, stredy_kmeans):
         plt.scatter(stred[0], stred[1], color='black', marker='+')
     plt.xlabel('x')
     plt.ylabel('y')
+    plt.axvline(x=0, c="black", label="x=0")
+    plt.axhline(y=0, c="black", label="y=0")
     plt.title("K-means")
     plt.show()
 
