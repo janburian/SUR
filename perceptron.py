@@ -24,7 +24,7 @@ def ziskej_T_error(T1: list, T2: list, q):
     i = 0
     T1_err_pomocna = []
     for soucin in souciny_T1:
-        if soucin < 0:
+        if soucin <= 0:
             T1_err_pomocna.append(i)
             i += 1
         else:
@@ -33,7 +33,7 @@ def ziskej_T_error(T1: list, T2: list, q):
 
     T2_err_pomocna = []
     for soucin in souciny_T2:
-        if soucin > 0:
+        if soucin >= 0:
             T2_err_pomocna.append(i)
             i += 1
         else:
@@ -57,16 +57,18 @@ def spocti_nove_q(q, T: list, ro, T_err):
     return nove_q
 
 if __name__ == "__main__":
-    '''
-    T1 = list(np.array(1, 2, 1), np.array(1, 2, 4), np.array(1, 0, 2))
-    T2 = list(np.array(1, 0, 1), np.array(1, -2, 1), np.array(1, -1, 2))
-    T3 = list(np.array(1, 0, -1), np.array(1, 3, 1), np.array(1, -2, 2))
-    '''
+    #T1 = [np.array([1, 2, 1]), np.array([1, 2, 4]), np.array([1, 0, 2])]
+    T2 = [np.array([1, 0, 1]), np.array([1, -2, 1]), np.array([1, -1, -2])]
+    T3 = [np.array([1, 0, -1]), np.array([1, 3, 1]), np.array([1, 1, -2])]
 
     # Ze cviceni
+    '''
     T1 = [np.array([1, 2, 1]), np.array([1, 2, -2]), np.array([1, 0, -2])]
     T2 = [np.array([1, 0, -1]), np.array([1, -2, -3]), np.array([1, -1, 1])]
     T = T1 + T2
+    '''
+
+    T = T2 + T3
 
     t = 0
     c = 0.5
@@ -74,7 +76,7 @@ if __name__ == "__main__":
 
     print("Iteration " + str(t) + ": " + "q = " + str(q))
     while True:
-        T_error = ziskej_T_error(T1, T2, q) # list listu
+        T_error = ziskej_T_error(T2, T3, q) # list listu
         if not any(T_error):
             print("Empty T_error!")
             break
