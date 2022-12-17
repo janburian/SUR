@@ -76,6 +76,8 @@ def count_new_covariances(vectors, M: int, cond_probs: list, new_means):
         denominator = sum(cond_probs)
         for vector, prob in zip(vectors, cond_probs):
             numerator = np.asmatrix(numerator + prob * ((vector - new_means[i]) * (vector - new_means[i]).reshape(-1, 1)))
+            #numerator = np.asmatrix(prob * ((vector - new_means[i]) * (vector - new_means[i]).reshape(-1, 1)))
+            #tmp = (vector - new_means[i]) * (vector - new_means[i]).reshape(-1, 1)
         res[i] = numerator / denominator
 
     return res
@@ -106,7 +108,7 @@ if __name__ == "__main__":
     cov_matrices = ([cov_1, cov_2, cov_3], iteration) # tuple (list of matrices, iteration)
 
     L_previous = -math.inf
-    for i in range(5):
+    for i in range(100):
         print(f"Iteration: {iteration}")
         print(f"C_{iteration}")
         idx = 1
