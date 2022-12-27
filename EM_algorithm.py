@@ -85,7 +85,7 @@ def count_new_covariances(vectors, M: int, cond_probs: list, new_means):
 if __name__ == "__main__":
     dim = 2
     vectors = [np.array([-3, -2]), np.array([3, -3]), np.array([0, 1]), np.array([-5, -2]), np.array([2, -2]),
-               np.array([1, -1]), np.array([-2, 2]), np.array([-2, 1]), np.array([-5, 4]), np.array([1,-3])]
+               np.array([1, -1]), np.array([-2, 2]), np.array([-2, 1]), np.array([-5, -4]), np.array([1, -3])]
     N = len(vectors)
     epsilon = 0.01
 
@@ -94,7 +94,7 @@ if __name__ == "__main__":
     C_2 = 1 / 3
     C_3 = 1 / 3
 
-    mean_1 = np.array([0, -1])
+    mean_1 = np.array([-5, -1])
     mean_2 = np.array([1, -2])
     mean_3 = np.array([-1, 4])
 
