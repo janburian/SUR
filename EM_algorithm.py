@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 
 def count_values_normal_distribution(C_list: list, dim: int, cov_matrices, means, vectors):
     result_list = list()
@@ -82,8 +83,45 @@ def count_new_covariances(vectors, M: int, cond_probs: list, new_means):
 
     return res
 
+def seperate_data_to_classes(vectors, cond_probs: list, R: int):
+    res = []
+    for i in range(R):
+        res.append([])
+
+    idx = 0
+    for probs in cond_probs:
+        max_prob = max(probs)
+        idx_max_prob = probs.index(max_prob)
+        res[idx_max_prob].append(vectors[idx])
+        idx += 1
+
+    return res
+
+def plot_classes_distribution(separated_data: list, means: list):
+    colours = ["red", "green", "blue", "magenta"]
+    i = 0
+    for cluster in separated_data:
+        for vector in cluster:
+            x = vector[0]
+            y = vector[1]
+            plt.scatter(x, y, color=colours[i])
+        i += 1
+
+    for mean in means[0]:
+        x = mean[0]
+        y = mean[1]
+        plt.scatter(x, y, color='black', marker='+')
+
+    plt.xlabel('x')
+    plt.ylabel('y')
+    #plt.axvline(x=0, c="black", label="x=0")
+    #plt.axhline(y=0, c="black", label="y=0")
+    plt.title("EM algorithm")
+    plt.show()
+
 if __name__ == "__main__":
     dim = 2
+    R = 3
     vectors = [np.array([-3, -2]), np.array([3, -3]), np.array([0, 1]), np.array([-5, -2]), np.array([2, -2]),
                np.array([1, -1]), np.array([-2, 2]), np.array([-2, 1]), np.array([-5, -4]), np.array([1, -3])]
     N = len(vectors)
@@ -133,9 +171,11 @@ if __name__ == "__main__":
         print(f"Likelihood^{iteration} = {L}")
         print()
         print()
-        if (L - L_previous) < epsilon: # Stop condition
-             break
         cond_probs = count_new_values_condtitional_probability(values_normal_distribution)
+        if (L - L_previous) < epsilon: # Stop condition
+            separated_data = seperate_data_to_classes(vectors, cond_probs, R)
+            plot_classes_distribution(separated_data, means)
+            break
         C_new = count_new_C(3, 10, cond_probs)
         means_new = count_new_means(vectors, 3, cond_probs)
         covariances_new = count_new_covariances(vectors, 3, cond_probs, means_new)
